@@ -15,17 +15,17 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+cd ..
+
 echo [1/5] Initializing Git repository...
 git init
 
 echo.
-echo [2/5] Renaming README for GitHub...
-if exist README_GITHUB.md (
-    if exist README.md (
-        del README_USER.md >nul 2>&1
-        ren README.md README_USER.md
-    )
-    ren README_GITHUB.md README.md
+echo [2/5] Checking README files...
+if exist README_USER.md (
+    echo README_USER.md found - keeping both versions
+) else (
+    echo Using current README.md
 )
 
 echo.
@@ -66,6 +66,6 @@ echo    git push -u origin main
 echo.
 echo Optional: Update these files with your information:
 echo    - README.md (line 164: Update author info)
-echo    - installer.iss (lines 6-8: Update publisher and URL)
+echo    - installer.iss (lines 7-8: Update publisher and URL)
 echo.
 pause

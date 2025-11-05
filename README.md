@@ -120,19 +120,30 @@ See [INSTALLER_GUIDE.md](INSTALLER_GUIDE.md) for detailed instructions.
 
 ```
 network-setter/
-├── MainForm.cs              # Main UI form and logic
-├── NetworkManager.cs        # Network configuration operations
-├── NetworkConfig.cs         # Configuration data model
-├── PresetManager.cs         # Preset storage and management
-├── Program.cs               # Application entry point
-├── app.manifest             # Admin elevation manifest
-├── NetworkSetter.csproj     # Project file
+├── src/                     # Source code
+│   ├── MainForm.cs          # Main UI form and logic
+│   ├── NetworkManager.cs    # Network configuration operations
+│   ├── NetworkConfig.cs     # Configuration data model
+│   ├── PresetManager.cs     # Preset storage and management
+│   ├── Program.cs           # Application entry point
+│   ├── app.manifest         # Admin elevation manifest
+│   └── NetworkSetter.csproj # Project file
+├── bat scripts/             # Build and utility scripts
+│   ├── build.bat            # Build the project
+│   ├── run.bat              # Run the application
+│   ├── create_installer.bat # Create installer
+│   ├── package.bat          # Package distribution
+│   └── setup_git.bat        # Initialize Git repository
+├── .github/                 # GitHub templates
+│   ├── ISSUE_TEMPLATE/      # Issue templates
+│   └── pull_request_template.md
 ├── installer.iss            # Inno Setup installer script
-├── README.md                # User documentation
+├── README.md                # This file
 ├── QUICK_START.md           # Quick setup guide
 ├── INSTALLER_GUIDE.md       # Installer creation guide
+├── CONTRIBUTING.md          # Contribution guidelines
+├── GITHUB_SETUP.md          # GitHub setup instructions
 └── LICENSE.txt              # MIT License
-
 ```
 
 ## ⚙️ Technical Details

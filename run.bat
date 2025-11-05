@@ -1,15 +1,3 @@
 @echo off
-echo Starting Network Setter...
-echo.
-echo Note: This application requires Administrator privileges.
-echo If prompted, please allow elevated access.
-echo.
-
-dotnet run
-
-if %ERRORLEVEL% NEQ 0 (
-    echo.
-    echo Failed to run! Make sure .NET 8.0 SDK is installed.
-    echo Download from: https://dotnet.microsoft.com/download/dotnet/8.0
-    pause
-)
+REM Wrapper script - calls the actual run script in bat scripts folder
+call "bat scripts\run.bat"

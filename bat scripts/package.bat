@@ -8,7 +8,9 @@ REM Create output directory
 if not exist "dist" mkdir dist
 
 echo [1/3] Building self-contained application...
+cd ..\src
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+cd ..
 
 if %ERRORLEVEL% NEQ 0 (
     echo.
@@ -19,7 +21,7 @@ if %ERRORLEVEL% NEQ 0 (
 
 echo.
 echo [2/3] Copying files to distribution folder...
-xcopy "bin\Release\net8.0-windows\win-x64\publish\*.*" "dist\" /Y /I
+xcopy "src\bin\Release\net8.0-windows\win-x64\publish\*.*" "dist\" /Y /I
 
 echo.
 echo [3/3] Creating README for distribution...
