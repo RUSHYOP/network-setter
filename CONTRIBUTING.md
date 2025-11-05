@@ -20,7 +20,7 @@ Thank you for considering contributing to Network Setter! This document provides
 
 2. **Clone your fork**
    ```bash
-   git clone https://github.com/yourusername/network-setter.git
+   git clone https://github.com/RUSHYOP/network-setter.git
    cd network-setter
    ```
 
