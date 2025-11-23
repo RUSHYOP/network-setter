@@ -1,218 +1,182 @@
-# Network Setter
+# Network Setter V2
 
-> A Windows desktop application for managing network adapter TCP/IP settings with preset support for IPv4 and IPv6.
+A powerful Windows desktop application for managing network adapter configurations with system tray integration, themes, and quick access features.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
-[![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue.svg)](https://www.microsoft.com/windows)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
+![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)
+![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
+## 🎉 What's New in V2
+
+- 🔄 **System Tray Integration** - Runs in background with quick access
+- 🎨 **Theme Support** - Light, Dark, and System themes
+- 📱 **Quick Access Popup** - Compact interface from system tray
+- 🚀 **Run at Startup** - Automatic startup with Windows
+- ⚡ **Enhanced Performance** - Faster network switching
+- 💾 **Settings Management** - Persistent configuration
+
+[See full comparison: V1 vs V2](V1_VS_V2.md)
 
 ## ✨ Features
 
-- 🌐 **IPv4 & IPv6 Support** - Configure both IP protocol versions
-- 🔄 **DHCP or Static IP** - Easy switching between automatic and manual configuration
-- 💾 **Network Presets** - Save and quickly apply different network configurations (Home, Work, College, etc.)
-- 📊 **Real-time Display** - View current IP address, gateway, subnet mask, and DNS settings
-- ⚡ **One-Click Apply** - Switch between network configurations instantly
-- 🔐 **Elevated Privileges** - Automatically requests administrator permissions when needed
-- 🎨 **Modern UI** - Clean Windows Forms interface
+### Core Functionality
+- Configure network adapters (IPv4 and IPv6)
+- Switch between DHCP and Static IP with one click
+- Set IP address, subnet mask, gateway, and DNS servers
+- Save and load network configuration presets
+- View current network settings in real-time
+- Support for multiple network adapters
 
-## 📸 Screenshots
+### V2 Enhancements
+- **System Tray** - Always accessible from notification area
+- **Quick Popup** - Instant access to common tasks (280x400 vertical window)
+- **Themes** - Light, Dark, or System-matched appearance
+- **Background Mode** - Minimize to tray instead of taskbar
+- **Startup Integration** - Launch automatically with Windows
+- **Smart Installer** - Upgrades from V1 seamlessly
 
-<!-- Add your screenshots here -->
-_Coming soon - Add screenshots of your application_
+## 📋 Requirements
+
+- **OS**: Windows 10/11 (64-bit)
+- **Runtime**: .NET 8.0 (included in installer)
+- **Privileges**: Administrator rights for network changes
+- **Memory**: 512 MB RAM minimum
+- **Disk**: 50 MB free space
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Install from Release (Recommended)
+1. Download `NetworkSetterV2_Setup.exe` from [installer_output](installer_output/NetworkSetterV2_Setup.exe)
+2. Run the installer as Administrator
+3. Choose installation options (desktop icon, run at startup)
+4. Launch and enjoy!
 
-- Windows 10 or Windows 11
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (for building from source)
-- Administrator privileges
-
-### Installation Options
-
-#### Option 1: Download Installer (Recommended)
-
-1. Download the latest `NetworkSetter_Setup_v1.0.0.exe` from [Releases](../../releases)
-2. Run the installer
-3. Follow the installation wizard
-4. Launch from Start Menu
-
-#### Option 2: Build from Source
-
+### Option 2: Build from Source
 ```powershell
 # Clone the repository
-git clone https://github.com/yourusername/network-setter.git
+git clone https://github.com/RUSHYOP/network-setter.git
 cd network-setter
 
-# Restore dependencies
-dotnet restore
+# Build the project
+dotnet build src/NetworkSetter.csproj --configuration Release
 
 # Run the application
-dotnet run
+.\src\bin\Release\net8.0-windows\NetworkSetter.exe
 ```
 
-> **Note:** Must be run in an elevated PowerShell (Administrator)
+## 📖 Documentation
 
-## 📖 Usage
+- **[Quick Start Guide](QUICK_START_V2.md)** - Get started in 3 steps
+- **[User Manual](README_V2.md)** - Complete feature documentation
+- **[V1 vs V2](V1_VS_V2.md)** - Feature comparison
+- **[Contributing](CONTRIBUTING.md)** - Development guidelines
 
-### 1. Viewing Current Settings
+## 🎯 Usage
 
-- Select your network adapter from the dropdown
-- Choose IPv4 or IPv6
-- Current settings display automatically
+### Main Window
+1. Launch as Administrator (right-click → Run as administrator)
+2. Select network adapter from dropdown
+3. Choose DHCP or Static IP configuration
+4. Apply settings and save as preset for future use
 
-### 2. Configuring Network Settings
+### System Tray Quick Access
+1. **Left-click** tray icon → Quick popup window
+2. **Right-click** tray icon → Full menu
+3. **Double-click** tray icon → Open main window
 
-#### DHCP (Automatic):
-1. Select "Obtain an IP address automatically (DHCP)"
-2. Click "Apply Settings"
+### Quick Actions from Tray Popup
+- Select adapter and enable DHCP with 2 clicks
+- Apply saved presets instantly
+- Open settings or full interface
 
-#### Static IP:
-1. Select "Use the following IP address"
-2. Enter your network details:
-   - IP Address (e.g., `192.168.1.100`)
-   - Subnet Mask (e.g., `255.255.255.0`)
-   - Gateway (e.g., `192.168.1.1`)
-   - Preferred DNS (e.g., `8.8.8.8`)
-   - Alternate DNS (optional)
-3. Click "Apply Settings"
+## 🛠️ Building
 
-### 3. Using Presets
-
-#### Save a Preset:
-1. Configure your network settings
-2. Enter a preset name (e.g., "Home", "Work", "College")
-3. Click "Save Current as Preset"
-
-#### Apply a Preset:
-1. Select a preset from the list
-2. Click "Apply Preset" or double-click it
-3. Confirm the changes
-
-#### Delete a Preset:
-1. Select a preset
-2. Click "Delete Preset"
-
-## 🛠️ Building & Distribution
-
-### Build Release Version
-
+### Development Build
 ```powershell
-dotnet build -c Release
+dotnet build src/NetworkSetter.csproj
 ```
 
-### Create Self-Contained Executable
-
+### Release Build
 ```powershell
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+dotnet build src/NetworkSetter.csproj --configuration Release
 ```
 
 ### Create Installer
-
-1. Install [Inno Setup 6](https://jrsoftware.org/isdl.php)
-2. Run `create_installer.bat` as Administrator
-3. Find installer in `installer_output/NetworkSetter_Setup_v1.0.0.exe`
-
-See [INSTALLER_GUIDE.md](INSTALLER_GUIDE.md) for detailed instructions.
+```powershell
+# Requires Inno Setup installed
+# Compile with: "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+# Output: installer_output\NetworkSetterV2_Setup.exe
+```
 
 ## 📂 Project Structure
 
 ```
 network-setter/
-├── src/                     # Source code
-│   ├── MainForm.cs          # Main UI form and logic
-│   ├── NetworkManager.cs    # Network configuration operations
-│   ├── NetworkConfig.cs     # Configuration data model
-│   ├── PresetManager.cs     # Preset storage and management
-│   ├── Program.cs           # Application entry point
-│   ├── app.manifest         # Admin elevation manifest
-│   └── NetworkSetter.csproj # Project file
-├── bat scripts/             # Build and utility scripts
-│   ├── build.bat            # Build the project
-│   ├── run.bat              # Run the application
-│   ├── create_installer.bat # Create installer
-│   ├── package.bat          # Package distribution
-│   └── setup_git.bat        # Initialize Git repository
-├── .github/                 # GitHub templates
-│   ├── ISSUE_TEMPLATE/      # Issue templates
-│   └── pull_request_template.md
-├── installer.iss            # Inno Setup installer script
-├── README.md                # This file
-├── QUICK_START.md           # Quick setup guide
-├── INSTALLER_GUIDE.md       # Installer creation guide
-├── CONTRIBUTING.md          # Contribution guidelines
-├── GITHUB_SETUP.md          # GitHub setup instructions
-└── LICENSE.txt              # MIT License
+├── src/                          # Source code
+│   ├── Program.cs               # Entry point & tray management
+│   ├── MainForm.cs              # Main window UI
+│   ├── TrayPopupForm.cs         # Quick access popup
+│   ├── SettingsForm.cs          # Settings dialog
+│   ├── ThemeManager.cs          # Theme system
+│   ├── SettingsManager.cs       # Settings persistence
+│   ├── NetworkManager.cs        # Network configuration
+│   ├── NetworkConfig.cs         # Data model
+│   ├── PresetManager.cs         # Preset management
+│   ├── IconGenerator.cs         # Dynamic icon creation
+│   └── NetworkSetter.csproj     # Project file
+├── installer_output/             # Compiled installer
+│   └── NetworkSetterV2_Setup.exe
+├── installer.iss                 # Inno Setup script
+├── LICENSE.txt
+├── README.md                     # This file
+├── README_V2.md                  # User manual
+├── QUICK_START_V2.md            # Quick start guide
+└── V1_VS_V2.md                  # Version comparison
 ```
 
-## ⚙️ Technical Details
+## 🎨 Themes
 
-- **Framework:** .NET 8.0 Windows Forms
-- **Network Management:** Windows Management Instrumentation (WMI) and `netsh`
-- **Data Storage:** JSON (Newtonsoft.Json)
-- **Network Info:** System.Net.NetworkInformation API
+Network Setter V2 supports three theme modes:
 
-### How It Works
+- **☀️ Light** - Clean, bright interface
+- **🌙 Dark** - Professional dark mode
+- **💻 System** - Matches Windows theme automatically
 
-- Uses `netsh` commands to configure network adapters at the TCP/IP level
-- Reads current settings via `System.Net.NetworkInformation`
-- Stores presets as JSON in `%APPDATA%\NetworkSetter\presets.json`
-- Requires UAC elevation for administrative operations
-
-## 🔒 Security & Permissions
-
-This application requires **Administrator privileges** to function because it modifies system-level network settings. The application:
-
-- ✅ Uses Windows built-in tools (`netsh`) for all operations
-- ✅ Requests elevation through standard UAC prompts
-- ✅ Does not collect or transmit any user data
-- ✅ Stores presets locally on your machine
-- ✅ Open source - audit the code yourself!
-
-## ⚠️ Important Notes
-
-- **Administrator Rights Required:** The app must run with elevated privileges
-- **Network Interruption:** Changing settings may temporarily disconnect your network
-- **IPv6 Support:** Ensure your router/network supports IPv6 before configuring
-- **Backup Settings:** Save your current configuration as a preset before making changes
+Change themes via: `View → Theme` or `Tools → Settings`
 
 ## 🐛 Troubleshooting
 
-### "Access Denied" Error
-- Ensure the application is running as Administrator
-- Right-click and select "Run as Administrator"
+### Application Won't Start
+- Ensure .NET 8.0 Runtime is installed
+- Check Windows Event Viewer for errors
+- Run from command line to see error messages
 
-### Changes Not Taking Effect
-- Wait 5-10 seconds after applying changes
-- Click "Refresh" to reload current settings
-- Restart the network adapter if necessary
+### "Access Denied" Errors
+- Run as Administrator (required for network changes)
+- Check User Account Control (UAC) settings
+- Verify you have network configuration permissions
 
-### Adapter Not Listed
-- Ensure the adapter is enabled in Windows settings
-- Check Device Manager for driver issues
-- Click "Refresh" to reload adapters
+### Settings Not Applying
+- Confirm Administrator privileges
+- Check network adapter is enabled
+- Verify adapter name is correct
+- Wait 2-3 seconds for changes to take effect
 
-See [QUICK_START.md](QUICK_START.md) for more troubleshooting tips.
+### Tray Icon Not Appearing
+- Check Windows notification area settings
+- Restart the application
+- Enable "Show all icons" in taskbar settings
+
+For more help, see [README_V2.md](README_V2.md) troubleshooting section.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Ideas for Contributions
-
-- Add support for more network protocols
-- Implement network adapter restart functionality
-- Add import/export for presets
-- Create a dark mode theme
-- Add network diagnostics tools
-- Improve error handling and logging
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Code style guidelines
+- Development setup
+- Pull request process
+- Issue reporting
 
 ## 📄 License
 
@@ -225,32 +189,17 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## 🙏 Acknowledgments
 
-- Built with [.NET Windows Forms](https://docs.microsoft.com/dotnet/desktop/winforms/)
-- Installer created with [Inno Setup](https://jrsoftware.org/isinfo.php)
-- JSON serialization by [Newtonsoft.Json](https://www.newtonsoft.com/json)
+- Built with .NET 8.0 and Windows Forms
+- Configuration management: Newtonsoft.Json
+- Network configuration: Windows Management Instrumentation (WMI)
+- System integration: Windows Registry API
 
-## 📊 Project Status
+## 📧 Support
 
-🚧 **Active Development** - Version 1.0.0
-
-### Roadmap
-
-- [ ] Add network adapter restart functionality
-- [ ] Implement preset import/export
-- [ ] Add network diagnostics tools
-- [ ] Create system tray icon for quick access
-- [ ] Add support for wireless network profiles
-- [ ] Implement logging system
-- [ ] Add multi-language support
-
-## 💬 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [documentation](README.md)
-2. Search [existing issues](../../issues)
-3. Create a [new issue](../../issues/new) if needed
+- **Issues**: [GitHub Issues](../../issues)
+- **Discussions**: [GitHub Discussions](../../discussions)
+- **Documentation**: See docs in this repository
 
 ---
 
-⭐ **Star this repository if you find it helpful!**
+**Network Setter V2** - Professional Network Configuration Made Easy 🚀
