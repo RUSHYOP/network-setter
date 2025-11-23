@@ -31,28 +31,99 @@ namespace NetworkSetter
         private Button btnDeletePreset;
         private TextBox txtPresetName;
 
+        private MenuStrip menuStrip;
+
         public MainForm()
         {
             InitializeComponent();
             LoadNetworkAdapters();
             LoadPresets();
             RefreshCurrentSettings();
+            
+            // Apply theme
+            ThemeManager.ThemeChanged += (s, e) => ThemeManager.ApplyTheme(this);
+            ThemeManager.ApplyTheme(this);
         }
 
         private void InitializeComponent()
         {
-            this.Text = "Network Setter - IP Configuration Manager";
-            this.Size = new Size(800, 700);
+            this.Text = "Network Setter V2 - IP Configuration Manager";
+            this.Size = new Size(800, 730);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+
+            // Menu Strip
+            menuStrip = new MenuStrip
+            {
+                Dock = DockStyle.Top
+            };
+            this.Controls.Add(menuStrip);
+            this.MainMenuStrip = menuStrip;
+
+            // File Menu
+            var fileMenu = new ToolStripMenuItem("File");
+            
+            var minimizeItem = new ToolStripMenuItem("Minimize to Tray");
+            minimizeItem.Click += (s, e) => this.Hide();
+            minimizeItem.ShortcutKeys = Keys.Control | Keys.M;
+            fileMenu.DropDownItems.Add(minimizeItem);
+
+            fileMenu.DropDownItems.Add(new ToolStripSeparator());
+
+            var exitItem = new ToolStripMenuItem("Exit");
+            exitItem.Click += (s, e) => Application.Exit();
+            exitItem.ShortcutKeys = Keys.Alt | Keys.F4;
+            fileMenu.DropDownItems.Add(exitItem);
+
+            menuStrip.Items.Add(fileMenu);
+
+            // View Menu
+            var viewMenu = new ToolStripMenuItem("View");
+            
+            var themeMenu = new ToolStripMenuItem("Theme");
+            
+            var lightThemeItem = new ToolStripMenuItem("Light");
+            lightThemeItem.Click += (s, e) => ChangeTheme(Theme.Light);
+            themeMenu.DropDownItems.Add(lightThemeItem);
+
+            var darkThemeItem = new ToolStripMenuItem("Dark");
+            darkThemeItem.Click += (s, e) => ChangeTheme(Theme.Dark);
+            themeMenu.DropDownItems.Add(darkThemeItem);
+
+            var systemThemeItem = new ToolStripMenuItem("System Default");
+            systemThemeItem.Click += (s, e) => ChangeTheme(Theme.System);
+            themeMenu.DropDownItems.Add(systemThemeItem);
+
+            viewMenu.DropDownItems.Add(themeMenu);
+            menuStrip.Items.Add(viewMenu);
+
+            // Tools Menu
+            var toolsMenu = new ToolStripMenuItem("Tools");
+            
+            var settingsItem = new ToolStripMenuItem("Settings");
+            settingsItem.Click += (s, e) => ShowSettings();
+            settingsItem.ShortcutKeys = Keys.Control | Keys.S;
+            toolsMenu.DropDownItems.Add(settingsItem);
+
+            menuStrip.Items.Add(toolsMenu);
+
+            // Help Menu
+            var helpMenu = new ToolStripMenuItem("Help");
+            
+            var aboutItem = new ToolStripMenuItem("About");
+            aboutItem.Click += (s, e) => ShowAbout();
+            helpMenu.DropDownItems.Add(aboutItem);
+
+            menuStrip.Items.Add(helpMenu);
 
             // Top Panel - Adapter Selection
             var pnlTop = new Panel
             {
                 Dock = DockStyle.Top,
                 Height = 60,
-                Padding = new Padding(10)
+                Padding = new Padding(10),
+                Top = menuStrip.Height
             };
             this.Controls.Add(pnlTop);
 
@@ -579,6 +650,42 @@ namespace NetworkSetter
                 MessageBox.Show($"Error deleting preset: {ex.Message}", "Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ChangeTheme(Theme theme)
+        {
+            ThemeManager.CurrentTheme = theme;
+            var settings = SettingsManager.LoadSettings();
+            settings.Theme = theme;
+            SettingsManager.SaveSettings(settings);
+        }
+
+        private void ShowSettings()
+        {
+            var settingsForm = new SettingsForm();
+            if (settingsForm.ShowDialog() == DialogResult.OK)
+            {
+                // Refresh if needed
+                ThemeManager.ApplyTheme(this);
+            }
+        }
+
+        private void ShowAbout()
+        {
+            var aboutMessage = "Network Setter V2\n" +
+                             "IP Configuration Manager\n\n" +
+                             "Version 2.0\n\n" +
+                             "Features:\n" +
+                             "• Background operation with system tray\n" +
+                             "• Run at startup\n" +
+                             "• Light and Dark themes\n" +
+                             "• Quick access popup\n" +
+                             "• Network presets\n" +
+                             "• IPv4 and IPv6 support\n\n" +
+                             "© 2025 Network Setter";
+
+            MessageBox.Show(aboutMessage, "About Network Setter V2", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

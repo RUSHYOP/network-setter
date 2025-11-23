@@ -80,6 +80,9 @@ $RECYCLE.BIN/
 # Distribution and installer output
 installer_output/
 dist/
+publish/
 
-# Application data
-*.json
+# Application data (but keep project files)
+!*.csproj
+!*.deps.json
+!*.runtimeconfig.json
